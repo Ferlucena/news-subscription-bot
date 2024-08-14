@@ -5,18 +5,25 @@ package com.gc.news_subscription_bot.model;
 * es el dominio
 * */
 
+
+
+import com.gc.news_subscription_bot.exception.InvalidCategoryException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ElementCollection;
+import jakarta.validation.constraints.AssertTrue;
 import lombok.Data;
-//import org.hibernate.annotations.processing.Pattern;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity //Marcamos la clase como una una entidad JPA --> Se mapea a tabla
 @Data   // Generamos getters, setters, toString con anotación
@@ -38,5 +45,25 @@ public class Subscription {
     @Size(min = 1, message = "Debe haber al menos una categoría") // que tenga al menos una categoría
     @ElementCollection // asociamos y almacenamos una lista de valores en la base de datos
     private List<String> categories;
+
+    //Harcodeando la lista permitida
+    private static final List<String> VALID_CATEGORIES = Arrays.asList("cat1", "cat2", "cat3", "cat4");
+
+    @AssertTrue(message = "Las categorías deben ser válidas")
+    private boolean isValidCategories() {
+        //Filtramos las categorías que no están en el listado
+        List<String> invalidCategories = categories.stream()
+                .filter(category -> !VALID_CATEGORIES.contains(category))
+                .collect(Collectors.toList());
+
+        //En caso de categorías inválidad las exponemos
+        if (!invalidCategories.isEmpty()) {
+            throw new InvalidCategoryException("Las siguientes categorías no son válidas: "+invalidCategories);
+        }
+
+        return true;
+
+    }
+
 
 }

@@ -30,9 +30,17 @@ public class GlobalExceptionHandler {
     }
 
     //Otros métodos para manejar otras excepciones
+    //Manejamos suscripciones no encontradas
     @ExceptionHandler(SuscriptionNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<String> handleSuscriptionNotFoundException(SuscriptionNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    //Manejamos categorías no encontradas
+    @ExceptionHandler(InvalidCategoryException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<String> handleInvalidCategoryException(InvalidCategoryException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
