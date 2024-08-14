@@ -4,10 +4,13 @@ package com.gc.news_subscription_bot.controller;
 import com.gc.news_subscription_bot.service.SubscriptionService;
 import com.gc.news_subscription_bot.model.Subscription;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController // Indicamos que la clase es un controlador REST, maneja HTTP y devuelve JSON
 @RequestMapping("/subscriptions") //Ruta, endpoint
@@ -18,10 +21,19 @@ public class SuscriptionController {
     @PostMapping //Solicitudes del tipo POST --> Crea nuevas suscripciones
     // ResponseEntity es una clase Spring que maneja resp HTTP cuerpo+encabezado+estado
     // Contiene a nuestro objeto Subscription
-    public ResponseEntity<Subscription> createSubscription(@RequestBody Subscription subscription) {
+    public ResponseEntity<Object> createSubscription(@Valid @RequestBody Subscription subscription, BindingResult result) {
+        // @Valid el objeto suscripcion debe ser validado al principio
+        // BindingResult (resultado vinculante) si hay errores se almacenan aqui
         // @RequestBody, es una especie de desestructuracion del objeto
         // deserializamos la solicitud extrayendo del cuerpo de la solicitud a subscription
         // este proceso se da en formato JSON que se transformará automaticamente en Objeto Suscription
+
+        //En caso de recibir una suscripcion con errores
+        //Listamos los errores para poder devolver un objeto
+        if (result.hasErrors()) {
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+
         Subscription createdSubscription = subscriptionService.createSubscription(subscription);
         // Llamamos al método createSubscription de la capa service y pasamos el objeto subscription recibido
         // El método crea una nueva suscripción y devuelve el objeto Suscription
