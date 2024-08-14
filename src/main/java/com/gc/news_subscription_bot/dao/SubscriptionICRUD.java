@@ -11,7 +11,7 @@ public interface SubscriptionICRUD extends JpaRepository<Subscription, Long>{
 
     //Devuelve las suscripciones de un usuario basado en su número de
     //teléfono.
-    Subscription findByPhoneNumber(String phoneNumer);
+    //Subscription findByPhoneNumber(String phoneNumer);
 
-    //Optional<Subscription> findByPhoneNumber(String phoneNumber);
+    Optional<Subscription> findByPhoneNumber(String phoneNumber);
 }

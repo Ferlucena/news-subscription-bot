@@ -1,6 +1,8 @@
 package com.gc.news_subscription_bot.service;
 
 import com.gc.news_subscription_bot.dao.SubscriptionICRUD;
+import com.gc.news_subscription_bot.exception.SuscriptionNotFoundException;
+
 import com.gc.news_subscription_bot.model.Subscription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +31,14 @@ public class SubscriptionService {
     // Obtener una suscripción
     // Trabajamos con Optional para manejar valores nulos.
     // Verifica si el valor está presente antes de intentar usarlo, evitando NullPointerException.
-    public Optional<Subscription> getSubscriptionByPhoneNumber(String phoneNumber) {
+/*    public Optional<Subscription> getSubscriptionByPhoneNumber(String phoneNumber) {
         return Optional.ofNullable(subscriptionICRUD.findByPhoneNumber(phoneNumber));
+    }*/
+
+    //cambio
+    public Subscription getSubscriptionByPhoneNumber(String phoneNumber) {
+        // Instancia de la excepcion de numero no encontrado
+        SuscriptionNotFoundException ex = new SuscriptionNotFoundException("No se encontró la suscripción con el número de teléfono: " + phoneNumber);
+        return subscriptionICRUD.findByPhoneNumber(phoneNumber).orElseThrow(() -> ex);
     }
 }

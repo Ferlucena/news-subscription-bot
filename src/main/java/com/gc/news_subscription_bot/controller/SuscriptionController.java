@@ -1,6 +1,7 @@
 package com.gc.news_subscription_bot.controller;
 
 
+import com.gc.news_subscription_bot.dao.SubscriptionICRUD;
 import com.gc.news_subscription_bot.service.SubscriptionService;
 import com.gc.news_subscription_bot.model.Subscription;
 
@@ -47,11 +48,13 @@ public class SuscriptionController {
     public ResponseEntity<Subscription> getSubscription(@PathVariable String phoneNumber) {
         // El parámetro @PathVariable String phoneNumber indica que el valor de {phoneNumber}
         // en la URL se asignará a la variable phoneNumber
-        return subscriptionService.getSubscriptionByPhoneNumber(phoneNumber)
-                .map(subscription -> new ResponseEntity<>(subscription, HttpStatus.OK))
-                //.map es parte de la clase Optional
-                // Si el Optional contiene un valor (es decir, la suscripción se encuentra),
-                // el método .map aplica la función proporcionada
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+
+        //Instanciamos la suscripción
+        Subscription subscription = subscriptionService.getSubscriptionByPhoneNumber(phoneNumber);
+        if (subscription != null) {
+            return new ResponseEntity<>(subscription, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
