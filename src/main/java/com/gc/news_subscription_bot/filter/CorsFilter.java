@@ -23,10 +23,22 @@ public class CorsFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+
         // Añadimos los encabezados CORS a la respuesta para permitir cualquier origen
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", "*");
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT");
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Headers", "*");
+
+        // Opcional: Permitir credenciales en las solicitudes CORS
+        // httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
+
+        // Si es una solicitud OPTIONS, responde con el código de estado 200
+        if ("OPTIONS".equalsIgnoreCase(httpRequest.getMethod())) {
+            httpResponse.setStatus(HttpServletResponse.SC_OK);
+            return;
+        }
 
         //Continuamos con el siguiente filtro de la cadena
         chain.doFilter(request, response);
