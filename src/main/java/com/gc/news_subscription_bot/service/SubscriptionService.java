@@ -31,7 +31,7 @@ public class SubscriptionService {
     // Obtener una suscripción
     // Trabajamos con Optional para manejar valores nulos.
     // Verifica si el valor está presente antes de intentar usarlo, evitando NullPointerException.
-/*    public Optional<Subscription> getSubscriptionByPhoneNumber(String phoneNumber) {
+/*  ANTES--> PROBLEMAS CON OPTIONAL-->  public Optional<Subscription> getSubscriptionByPhoneNumber(String phoneNumber) {
         return Optional.ofNullable(subscriptionICRUD.findByPhoneNumber(phoneNumber));
     }*/
 

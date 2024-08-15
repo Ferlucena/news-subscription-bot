@@ -49,11 +49,6 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
 
 		<dependency>
 		<groupId>org.springframework.boot</groupId>
@@ -92,11 +87,24 @@
 			<artifactId>jaxb-api</artifactId>
 			<version>2.3.1</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 			<version>3.3.2</version>
 			<scope>compile</scope>
+		</dependency>
+		<!-- Pruebas Unitarias-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>5.1.1</version>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- Spring REST Docs -->
@@ -104,6 +112,13 @@
 			<groupId>org.springframework.restdocs</groupId>
 			<artifactId>spring-restdocs-mockmvc</artifactId>
 			<version>2.0.8.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!--VER SI FUNCIONA-->
+		<dependency>
+			<groupId>org.springframework.restdocs</groupId>
+			<artifactId>spring-restdocs-restassured</artifactId>
 			<scope>test</scope>
 		</dependency>
 
@@ -134,19 +149,21 @@
 			<plugin>
 				<groupId>org.asciidoctor</groupId>
 				<artifactId>asciidoctor-maven-plugin</artifactId>
-				<version>1.5.8</version>
+				<version>1.5.8</version><!--1.5.8-->
 				<executions>
 					<execution>
 						<goals>
 							<goal>process-asciidoc</goal>
 						</goals>
+						<phase>prepare-package</phase>
 					</execution>
 				</executions>
 				<configuration>
-					<sourceDirectory>src/docs/asciidoc</sourceDirectory>
+					<sourceDirectory>${project.basedir}/src/docs/asciidoc</sourceDirectory>
 					<outputDirectory>${project.build.directory}/generated-docs</outputDirectory>
 				</configuration>
 			</plugin>
+
 		</plugins>
 	</build>
 
