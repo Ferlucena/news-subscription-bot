@@ -14,7 +14,7 @@ import java.util.Optional;
 * Cualquier solicitud o ejecución pasa por esta capa
 * */
 
-@Service
+@Service //Marcamos la clase como servicio, contiene logica de negocio
 public class SubscriptionService {
     /*Esto es declarar el objeto primero el objeto e instanciarlo con la implementacion
      * principio de Liskov*/
