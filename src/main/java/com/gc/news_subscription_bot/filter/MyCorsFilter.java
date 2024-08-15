@@ -1,14 +1,12 @@
 package com.gc.news_subscription_bot.filter;
 
 import java.io.IOException;
-import java.util.List;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
@@ -18,7 +16,7 @@ import org.springframework.stereotype.Component;
 * */
 
 @Component
-public class CorsFilter implements Filter {
+public class MyCorsFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
