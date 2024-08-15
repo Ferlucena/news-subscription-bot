@@ -11,12 +11,13 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Component;
 
 /*
 * CorsFilter permite la conexión del front desde puertos distintos
 * */
 
-@WebFilter(urlPatterns = { "/*" })
+@Component
 public class CorsFilter implements Filter {
 
     @Override
