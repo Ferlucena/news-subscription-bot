@@ -24,7 +24,4 @@ public class AuthController {
         // Devolver el token en la respuesta
         return ResponseEntity.ok(jwt);
     }
-
-
-
 }
