@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selección de Categorías de Noticias</title>
+    <!-- Zona CSS -->
+     <link rel="stylesheet" href="../src/assets/style.css">
+</head>
+
+<body>
+    <form id="newsForm">
+        <section>
+            <label for="phone">Número de teléfono:</label><br>
+            <input type="text" id="phone" name="phone" required><br>
+        </section>
+        <section>
+            <label for="categories">Selecciona las categorías de noticias:</label><br>
+            <input type="checkbox" name="category" value="cat1"> cat1<br>
+            <input type="checkbox" name="category" value="cat2"> cat2<br>
+            <input type="checkbox" name="category" value="cat3"> cat3<br>
+            <input type="checkbox" name="category" value="cat4"> cat4<br>
+            <input type="text" name="category" value="Introduzca aquí su categoría"><br><br>
+        </section>
+        <section>
+            <button type="submit">Suscribirme</button>
+        </section>
+    </form>
+
+<!-- Zona Script -->
+    <script src="../src/utils/regex.js"></script>
+    <script src="../src/services/api-fetch.js"></script>
+    
+</body>
+
+</html>
