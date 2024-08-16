@@ -1,7 +1,6 @@
 package com.gc.news_subscription_bot.controller;
 
 
-import com.gc.news_subscription_bot.dao.SubscriptionICRUD;
 import com.gc.news_subscription_bot.service.SubscriptionService;
 import com.gc.news_subscription_bot.model.Subscription;
 
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController // Indicamos que la clase es un controlador REST, maneja HTTP y devuelve JSON
 @RequestMapping("/subscriptions") //Ruta, endpoint
-public class SuscriptionController {
+public class Controller {
     @Autowired
     private SubscriptionService subscriptionService;
 
