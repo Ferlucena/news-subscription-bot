@@ -1,7 +1,6 @@
 package com.gc.news_subscription_bot.controller;
 
 
-import com.gc.news_subscription_bot.dao.SubscriptionICRUD;
 import com.gc.news_subscription_bot.service.SubscriptionService;
 import com.gc.news_subscription_bot.model.Subscription;
 
@@ -9,13 +8,15 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController // Indicamos que la clase es un controlador REST, maneja HTTP y devuelve JSON
 @RequestMapping("/subscriptions") //Ruta, endpoint
-public class SuscriptionController {
+public class Controller {
     @Autowired
     private SubscriptionService subscriptionService;
 
@@ -29,18 +30,29 @@ public class SuscriptionController {
         // deserializamos la solicitud extrayendo del cuerpo de la solicitud a subscription
         // este proceso se da en formato JSON que se transformará automaticamente en Objeto Suscription
 
+
         //En caso de recibir una suscripcion con errores
         //Listamos los errores para poder devolver un objeto
         if (result.hasErrors()) {
             return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
 
+        //Autenticacion
+        // Obtener el nombre de usuario del contexto de seguridad
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = (authentication != null) ? authentication.getName() : null;
+
         Subscription createdSubscription = subscriptionService.createSubscription(subscription);
         // Llamamos al método createSubscription de la capa service y pasamos el objeto subscription recibido
         // El método crea una nueva suscripción y devuelve el objeto Suscription
 
+        // Asociar el nombre de usuario con la suscripción si es necesario
+        if (username != null) {
+            subscription.setPhoneNumber(username);
+        }
+
         return new ResponseEntity<>(createdSubscription, HttpStatus.CREATED);
-        //un método post en si no devuelve nada comunmente pero con springboot podemos devolver el objeto construido
+        // un método post en si no devuelve nada comunmente pero con springboot podemos devolver el objeto construido
         // como aviso de resultado ok y un estado al cliente mediante ResponseEntity
     }
 

@@ -24,9 +24,10 @@ public class JwtService {
     @Value("${jwt.secret}")
     private String SECRET_KEY;
 
+
     // Extraer el nombre de usuario del token JWT
     public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
+        return extractClaim(token, Claims::getSubject );
     }
 
     // Extraer cualquier claim del token JWT

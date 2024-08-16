@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
         method: "POST", // Método HTTP
         headers: {
           "Content-Type": "application/json", // Indicamos que enviamos JSON
+          "Authorization": "Bearer " + localStorage.getItem("token")
         },
         body: JSON.stringify(data), // Convertimos el objeto data a una cadena JSON
       })
@@ -49,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
       })
 
         .then(data => {
+        //localStorage.setItem("token", data.token);
         alert("Suscripción exitosa:" + data.phoneNumber);
         updateUIWithSubscriptions(data);
       })

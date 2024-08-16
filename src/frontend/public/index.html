@@ -10,6 +10,16 @@
 </head>
 
 <body>
+<section>
+    <form id="loginForm">
+    <h2>Iniciar Sesión</h2>
+    <input type="text" id="username" placeholder="Nombre de usuario" required>
+    <input type="password" id="password" placeholder="Contraseña" required>
+    <button type="submit">Entrar</button>
+</form>
+</section>
+
+
     <form id="newsForm">
         <section>
             <label for="phone">Número de teléfono:</label><br>
@@ -31,6 +41,7 @@
     <div id="subscriptions-container"></div>
 
 <!-- Zona Script -->
+    <script src="../src/services/login-fetch.js"></script>
     <script src="../src/utils/regex.js"></script>
     <script src="../src/services/api-fetch.js"></script>
     
