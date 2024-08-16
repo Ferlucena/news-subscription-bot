@@ -10,7 +10,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    //Filtro para token
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http

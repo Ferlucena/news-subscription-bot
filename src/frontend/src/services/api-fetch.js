@@ -23,10 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
       checkboxes.forEach((checkbox) => {
         selectedCategories.push(checkbox.value);
       });
-
-      // Categoria personalizada
-      /* const customCategory = document.getElementById('customCategory').value;
-      if (customCategory) categories.push(customCategory); */
   
       // Llamamos a la función de validación
       if (validatePhoneNumber(phoneNumber)) {
@@ -58,44 +54,11 @@ document.addEventListener("DOMContentLoaded", () => {
           })
           .then((data) => {
             // Imprimimos en consola el objeto recibido en caso de éxito
-            alert("Suscripción exitosa:", data);
-            
-            /* const subscriptionsContainer = document.getElementById("subscriptions-container");
-            subscriptionsContainer.innerHTML = ''; // Limpiar el contenedor antes de agregar nuevo contenido
-        
-            let {subscriptions} = data.categories;
-
-            subscriptions.forEach(subscription => {
-                const subscriptionElement = document.createElement("div");
-                subscriptionElement.className = 'subscription';
-                
-                const phoneText = document.createElement("p");
-                phoneText.textContent = `Teléfono: ${subscription.phoneNumber}`;
-
-                subscriptionElement.appendChild(phoneText);
-                
-                // Crear elementos para las categorías
-                for (const category in subscription.categories) {
-                    const categoryElement = document.createElement("p");
-                    categoryElement.textContent = `Categoría: ${category} - ${subscription.categories[category]}`;
-        
-                    const modifyButton = createButton('Modificar', () => modifyCategory(subscription.id, category));
-                    const cancelButton = createButton('Cancelar', () => cancelCategory(subscription.id, category));
-        
-                    // Añadir el texto de la categoría y los botones al elemento de la suscripción
-                    subscriptionElement.appendChild(categoryElement);
-                    subscriptionElement.appendChild(modifyButton);
-                    subscriptionElement.appendChild(cancelButton);
-                }
-        
-                subscriptionsContainer.appendChild(subscriptionElement);
-            });
-        
- */
+            console.log("Suscripción exitosa:", data);
           })
           .catch((error) => {
             // Imprimimos en consola el mensaje de error recibido del backend
-            alert("Error en la suscripción:", error.message);
+            console.error("Error en la suscripción:", error.message);
           });
       } else {
         alert("Número de teléfono inválido, introduzca un formato válido");
