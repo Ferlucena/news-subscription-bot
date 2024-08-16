@@ -11,20 +11,18 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         body: JSON.stringify({ username, password })
     })
         .then(response => {
-            if (response.ok && response.headers.get('Content-Type').includes('application/json')) {
-                return response.json();
+            if (response.ok) {
+                return response.json();  // Intenta parsear como JSON solo si la respuesta fue exitosa
             } else {
-                throw new Error('No JSON response');
+                throw new Error('Fallo en la petición fetch');
             }
         })
         .then(data => {
             if(data.token) {
-                localStorage.setItem('token', data.tw);
+                localStorage.setItem('token', data.token);
                 alert('Inicio de sesión exitoso');
-                // Redireccionar al usuario a otra página o actualizar la interfaz de usuario
-            } else {
-                alert('Error al iniciar sesión. Por favor, revise sus credenciales.');
-            }
+                
+            } 
         })
         .catch(error => {
             console.error('Error:', error);
