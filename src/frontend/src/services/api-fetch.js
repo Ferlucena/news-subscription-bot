@@ -1,3 +1,7 @@
+/*El documento API-FETCH
+* maneja la lógica del front de suscripcion
+*/
+
 // Esperamos a que el DOM esté completamente cargado
 document.addEventListener("DOMContentLoaded", () => {
   // Seleccionamos el formulario por su ID
@@ -16,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelectorAll('input[name="category"]:checked'),
       (checkbox) => checkbox.value
     );
-
 
     // Categoria personalizada
     /* const customCategory = document.getElementById('customCategory').value;
@@ -50,7 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
       })
 
         .then(data => {
-        //localStorage.setItem("token", data.token);
         alert("Suscripción exitosa:" + data.phoneNumber);
         updateUIWithSubscriptions(data);
       })

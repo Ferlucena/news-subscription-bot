@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController // Indicamos que la clase es un controlador REST, maneja HTTP y devuelve JSON
 @RequestMapping("/subscriptions") //Ruta, endpoint
-public class Controller {
+public class RoutesController {
     @Autowired
     private SubscriptionService subscriptionService;
 
@@ -42,9 +42,10 @@ public class Controller {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = (authentication != null) ? authentication.getName() : null;
 
-        Subscription createdSubscription = subscriptionService.createSubscription(subscription);
         // Llamamos al método createSubscription de la capa service y pasamos el objeto subscription recibido
         // El método crea una nueva suscripción y devuelve el objeto Suscription
+        Subscription createdSubscription = subscriptionService.createSubscription(subscription);
+
 
         // Asociar el nombre de usuario con la suscripción si es necesario
         if (username != null) {
@@ -63,10 +64,12 @@ public class Controller {
 
         //Instanciamos la suscripción
         Subscription subscription = subscriptionService.getSubscriptionByPhoneNumber(phoneNumber);
+
         if (subscription != null) {
             return new ResponseEntity<>(subscription, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
     }
 }

@@ -49,7 +49,7 @@ public class Subscription {
     //Harcodeando la lista permitida
     private static final List<String> VALID_CATEGORIES = Arrays.asList("cat1", "cat2", "cat3", "cat4");
 
-    @AssertTrue(message = "Las categorías deben ser válidas")
+    @AssertTrue(message = "Las categorías deben ser válidas") //  Este método debe retornar true para que la validación pase
     private boolean isValidCategories() {
         //Filtramos las categorías que no están en el listado
         List<String> invalidCategories = categories.stream()
@@ -58,7 +58,7 @@ public class Subscription {
 
         //En caso de categorías inválidad las exponemos
         if (!invalidCategories.isEmpty()) {
-            throw new InvalidCategoryException("Las siguientes categorías no son válidas: "+invalidCategories);
+            throw new InvalidCategoryException("La/s siguiente/s categoría/s no es/son válida/s: "+invalidCategories);
         }
 
         return true;

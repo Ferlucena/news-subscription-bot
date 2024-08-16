@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /*
-* Aqui debe estar el MySQLCRUD
+* Aqui debe estar el MySQLCRUDIMPL
 * esta clase no está funcionando
 * */
 

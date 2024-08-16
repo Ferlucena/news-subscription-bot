@@ -39,6 +39,7 @@ public class SubscriptionService {
     public Subscription getSubscriptionByPhoneNumber(String phoneNumber) {
         // Instancia de la excepcion de numero no encontrado
         SuscriptionNotFoundException ex = new SuscriptionNotFoundException("No se encontró la suscripción con el número de teléfono: " + phoneNumber);
+        //En caso de encontrarlo
         return subscriptionICRUD.findByPhoneNumber(phoneNumber).orElseThrow(() -> ex);
     }
 }

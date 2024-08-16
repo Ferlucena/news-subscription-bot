@@ -2,7 +2,7 @@ package com.gc.news_subscription_bot.controller;
 
 import com.gc.news_subscription_bot.service.JwtService;
 import com.gc.news_subscription_bot.dto.AuthRequest;
-import com.gc.news_subscription_bot.dto.AuthResponse;
+import com.gc.news_subscription_bot.dto. AuthResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
