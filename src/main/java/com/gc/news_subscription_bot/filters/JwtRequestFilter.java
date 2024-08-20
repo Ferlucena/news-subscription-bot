@@ -32,7 +32,7 @@ public class JwtRequestFilter implements Filter {
         String authorizationHeader = httpServletRequest.getHeader("Authorization");
 
         // Verificamos si el encabezado de autorización no es nulo y si comienza con "Bearer ".
-        // Esto indica que el encabezado contiene un token JWT.
+        // quitamos la palabra Bearer
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             // Extraemos el token JWT eliminando el prefijo "Bearer ".
             String jwt = authorizationHeader.substring(7);

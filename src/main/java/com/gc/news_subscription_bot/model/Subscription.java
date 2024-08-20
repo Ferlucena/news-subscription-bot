@@ -47,9 +47,12 @@ public class Subscription {
     private List<String> categories;
 
     //Harcodeando la lista permitida
-    private static final List<String> VALID_CATEGORIES = Arrays.asList("cat1", "cat2", "cat3", "cat4");
+    public static final List<String> VALID_CATEGORIES = Arrays.asList("cat1", "cat2", "cat3", "cat4");
 
-    @AssertTrue(message = "Las categorías deben ser válidas") //  Este método debe retornar true para que la validación pase
+/*
+// Separando las logicas de validacion de la capa de excepciones
+
+@AssertTrue(message = "Las categorías deben ser válidas") //  Este método debe retornar true para que la validación pase
     private boolean isValidCategories() {
         //Filtramos las categorías que no están en el listado
         List<String> invalidCategories = categories.stream()
@@ -63,6 +66,10 @@ public class Subscription {
 
         return true;
 
+    }*/
+
+    public boolean isValidCategories() {
+        return categories != null && categories.stream().allMatch(VALID_CATEGORIES::contains);
     }
 
 }

@@ -1,12 +1,14 @@
 package com.gc.news_subscription_bot.service;
 
 import com.gc.news_subscription_bot.dao.SubscriptionICRUD;
+import com.gc.news_subscription_bot.exception.InvalidCategoryException;
 import com.gc.news_subscription_bot.exception.SuscriptionNotFoundException;
 
 import com.gc.news_subscription_bot.model.Subscription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /*
@@ -41,5 +43,18 @@ public class SubscriptionService {
         SuscriptionNotFoundException ex = new SuscriptionNotFoundException("No se encontró la suscripción con el número de teléfono: " + phoneNumber);
         //En caso de encontrarlo
         return subscriptionICRUD.findByPhoneNumber(phoneNumber).orElseThrow(() -> ex);
+    }
+
+    // Método de actualización de servicio, incluye el tratamiento de la excepcion en la validación
+    public Subscription updateSubscriptionCategories(Long id, List<String> newCategories) {
+        Subscription subscription = subscriptionICRUD.findById(id)
+                .orElseThrow(() ->  new SuscriptionNotFoundException("Suscripción no encontrada con ID: " + id));
+
+        if (!newCategories.isEmpty() && newCategories.stream().allMatch(Subscription.VALID_CATEGORIES::contains)) {
+            subscription.setCategories(newCategories);
+            return subscriptionICRUD.save(subscription);
+        } else {
+            throw new InvalidCategoryException("Algunas categorías proporcionadas no son válidas.");
+        }
     }
 }

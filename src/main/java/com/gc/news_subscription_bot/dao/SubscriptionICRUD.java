@@ -14,4 +14,7 @@ public interface SubscriptionICRUD extends JpaRepository<Subscription, Long>{
     //Subscription findByPhoneNumber(String phoneNumer);
 
     Optional<Subscription> findByPhoneNumber(String phoneNumber);
+
+
+
 }

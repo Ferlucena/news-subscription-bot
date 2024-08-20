@@ -1,6 +1,7 @@
 package com.gc.news_subscription_bot.controller;
 
 
+import com.gc.news_subscription_bot.dao.SubscriptionICRUD;
 import com.gc.news_subscription_bot.service.SubscriptionService;
 import com.gc.news_subscription_bot.model.Subscription;
 
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 public class RoutesController {
     @Autowired
     private SubscriptionService subscriptionService;
+    @Autowired
+    private SubscriptionICRUD subscriptionICRUD;
 
     @PostMapping //Solicitudes del tipo POST --> Crea nuevas suscripciones
     // ResponseEntity es una clase Spring que maneja resp HTTP cuerpo+encabezado+estado
@@ -71,5 +74,17 @@ public class RoutesController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
+    }
+
+    @PutMapping("/{phoneNumber}")
+    public ResponseEntity<Subscription> updateSubscriptionByPhone(@PathVariable String phoneNumber, @RequestBody Subscription subscriptionDetails) {
+        Subscription subscription = subscriptionService.getSubscriptionByPhoneNumber(phoneNumber);
+
+        // Actualizar los campos de la suscripción
+        subscription.setPhoneNumber(subscriptionDetails.getPhoneNumber());  // Considerar la necesidad de este campo
+        subscription.setCategories(subscriptionDetails.getCategories());
+
+        Subscription updatedSubscription = subscriptionICRUD.save(subscription);
+        return ResponseEntity.ok(updatedSubscription);
     }
 }
