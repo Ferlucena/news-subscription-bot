@@ -23,6 +23,13 @@ public class RoutesController {
     @Autowired
     private SubscriptionICRUD subscriptionICRUD;
 
+    /*
+    * En este caso subscription registra en la bbdd el usuario con nombre y pass
+    * El tratamiento CRUD del usuario se realizará con un controlador que maneje id de usuario
+    * El presente CRUD maneja solo las suscripciones.
+    * */
+
+
     @PostMapping //Solicitudes del tipo POST --> Crea nuevas suscripciones
     // ResponseEntity es una clase Spring que maneja resp HTTP cuerpo+encabezado+estado
     // Contiene a nuestro objeto Subscription
@@ -75,7 +82,7 @@ public class RoutesController {
         }
 
     }
-
+    // Actualizar suscripciones a partir del número de telefono
     @PutMapping("/{phoneNumber}")
     public ResponseEntity<Subscription> updateSubscriptionByPhone(@PathVariable String phoneNumber, @RequestBody Subscription subscriptionDetails) {
         Subscription subscription = subscriptionService.getSubscriptionByPhoneNumber(phoneNumber);
@@ -87,4 +94,12 @@ public class RoutesController {
         Subscription updatedSubscription = subscriptionICRUD.save(subscription);
         return ResponseEntity.ok(updatedSubscription);
     }
+    
+    // Borrar suscripciones a partir del número de telefono
+    @DeleteMapping("/{phoneNumber}")
+    public ResponseEntity<?> deleteSubscription(@PathVariable String phoneNumber) {
+        subscriptionService.deleteByPhoneNumber(phoneNumber);
+        return ResponseEntity.ok().build(); // Respuesta exitosa sin contenido
+    }
+
 }

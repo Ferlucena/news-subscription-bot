@@ -57,4 +57,11 @@ public class SubscriptionService {
             throw new InvalidCategoryException("Algunas categorías proporcionadas no son válidas.");
         }
     }
+
+    // Método para borrar
+    public void deleteByPhoneNumber(String phoneNumber) throws SuscriptionNotFoundException {
+        Subscription subscription = subscriptionICRUD.findByPhoneNumber(phoneNumber)
+                .orElseThrow(() -> new SuscriptionNotFoundException("No se encontró la suscripción con el número de teléfono: " + phoneNumber));
+        subscriptionICRUD.delete(subscription);
+    }
 }
